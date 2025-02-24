@@ -20,6 +20,11 @@ def index(request):
     # Number of books containing the word "the"
     num_books_the = Book.objects.filter(title__contains='the').count()
 
+    # Number of visits to this view, as counted in the session variable.
+    num_visits = request.session.get('num_visits', 0)
+    num_visits += 1
+    request.session['num_visits'] = num_visits
+
     context = {
         'num_books': num_books,
         'num_instances': num_instances,
@@ -27,6 +32,7 @@ def index(request):
         'num_authors': num_authors,
         'num_genres': num_genres,
         'num_books_the': num_books_the,
+        'num_visits': num_visits,
     }
 
     # Render the HTML template index.html with the data in the context variable
