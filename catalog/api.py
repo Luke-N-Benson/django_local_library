@@ -1,22 +1,14 @@
 from .models import Author, Genre, Language
 from ninja import NinjaAPI, ModelSchema
+from ninja.orm import create_schema
 
 api = NinjaAPI()
 
-class AuthorSchema(ModelSchema):
-    class Meta:
-        model = Author
-        fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+AuthorSchema = create_schema(Author, fields=['first_name', 'last_name', 'date_of_birth', 'date_of_death'])
 
-class GenreSchema(ModelSchema):
-    class Meta:
-        model = Genre
-        fields = ['name']
+GenreSchema = create_schema(Genre, fields=['name'])
 
-class LanguageSchema(ModelSchema):
-    class Meta:
-        model = Language
-        fields = ['name']
+LanguageSchema = create_schema(Language, fields=['name'])
 
 from django.shortcuts import get_object_or_404
 from typing import List
